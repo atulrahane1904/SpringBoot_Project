@@ -20,9 +20,9 @@ public class UserDao {
 
 	public User findUserById(int id) {
 		// TODO Auto-generated method stub
-		User user = repo.findById(id).get();
+
 //		if (repo.findById(id).isPresent()) {
-		if(user!=null) {
+		if(repo.findById(id).isPresent()){
 			return repo.findById(id).get();
 		} else {
 			return null;
@@ -60,8 +60,8 @@ public class UserDao {
 
 	public User userUpdate(int id, User user) {
 		// TODO Auto-generated method stub
-		User user1 = repo.findById(id).get();
-		if (user1!=null) {
+	
+		if (repo.findById(id).isPresent()) {
 			user.setId(id);
 			repo.save(user);
 			return user;

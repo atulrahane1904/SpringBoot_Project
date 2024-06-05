@@ -1,4 +1,4 @@
-package com.personal_project.bloging_app;
+	package com.personal_project.bloging_app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -6,4 +6,10 @@ import com.personal_project.bloging_app.dto.Post;
 
 public interface PostRepo extends JpaRepository<Post, Integer> {
 
+//	List<Post> getAllPost();
+
+	
+
+//   Catagory deleteInBatch(Catagory catagory);
+
 }

@@ -22,8 +22,9 @@ private CategoryDao categoryDao;
 		// TODO Auto-generated method stub
 
 		ResponseStructure<Catagory> structure = new ResponseStructure<>();
+		Catagory catagory2 = categoryDao.saveCategory(catagory);
      	structure.setMessage("Saves Data Succesfully");
-		structure.setData(categoryDao.saveCategory(catagory));
+		structure.setData(catagory2);
 		structure.setStatus(HttpStatus.CREATED.value());
 		return new ResponseEntity<ResponseStructure<Catagory>>(structure, HttpStatus.CREATED);
 	}

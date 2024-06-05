@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.personal_project.bloging_app.dto.User;
 import com.personal_project.bloging_app.service.UserService;
+import com.personal_project.bloging_app.service.UserServiceimp;
 import com.personal_project.bloging_app.util.ResponseStructure;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 @Autowired
-private UserService service; 
+private UserServiceimp service; 
 @PostMapping
 public ResponseEntity<ResponseStructure<User>> saveUser( @RequestBody User user ) {
 	return service.saveUser(user);

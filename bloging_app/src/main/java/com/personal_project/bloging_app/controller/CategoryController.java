@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.personal_project.bloging_app.dto.Catagory;
+import com.personal_project.bloging_app.dto.Post;
 import com.personal_project.bloging_app.service.CategoryServiceImp;
 import com.personal_project.bloging_app.util.ResponseStructure;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/category")
@@ -25,23 +28,24 @@ public class CategoryController {
 	private CategoryServiceImp categoryService;
 
 	@PostMapping
-	public ResponseEntity<ResponseStructure<Catagory>> saveCategory(@RequestBody Catagory category) {
+	public ResponseEntity<ResponseStructure<Catagory>> saveCategory(@Valid @RequestBody Catagory category) {
 		return categoryService.saveCategory(category);
 	}
 	@PutMapping
-	public ResponseEntity<ResponseStructure<Catagory>> updateCategory(@RequestParam  int id,@RequestBody  Catagory catagory) {
+	public ResponseEntity<ResponseStructure<Catagory>> updateCategory(@Valid  @RequestParam  int id,@RequestBody  Catagory catagory) {
 		return categoryService.updateCategory(id, catagory);
 	}
 	@GetMapping
-	public ResponseEntity<ResponseStructure<Catagory>> getCategory( @RequestParam int id) {
+	public ResponseEntity<ResponseStructure<Catagory>> getCategory(@Valid @RequestParam int id) {
 	    return categoryService.getCategory(id);
 	}
 	@DeleteMapping
-	public ResponseEntity<ResponseStructure<Catagory>> deleteCategory( @RequestParam int id) {
+	public ResponseEntity<ResponseStructure<Catagory>> deleteCategory( @Valid @RequestParam int id) {
 	    return categoryService.deleteCategory(id);
 	}
 @GetMapping("/all")
 	public ResponseEntity<ResponseStructure<List<Catagory>>> getAllCategory() {
 		return categoryService.getAllCategory();
-	}
+
+}
 }

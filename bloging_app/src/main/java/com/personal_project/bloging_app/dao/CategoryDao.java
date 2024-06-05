@@ -38,15 +38,6 @@ public class CategoryDao {
 
 	}
 
-//	public Catagory findById(int id) {
-//		// TODO Auto-generated method stub
-//		Catagory catagory2 = categoryRepo.findById(id);
-//		if (catagory2 != null) {
-//			return catagory2;
-//			}else {
-//				return null;
-//			}
-//	}
 	public Catagory deleteCategory(int id) {
 		// TODO Auto-generated method stub
 //		Catagory catagory2 = categoryRepo.findById(id).get();

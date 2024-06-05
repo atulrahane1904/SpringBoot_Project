@@ -1,24 +1,27 @@
 package com.personal_project.bloging_app.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.personal_project.bloging_app.dao.PostDao;
+import org.springframework.http.ResponseEntity;
+
 import com.personal_project.bloging_app.dto.Post;
 import com.personal_project.bloging_app.util.ResponseStructure;
-@Service
-public class PostService {
-@Autowired 
-private PostDao postdao;
-	public ResponseEntity<ResponseStructure<Post>> savePost(Post post) {
-		// TODO Auto-generated method stub
-		ResponseStructure<Post> structure=new ResponseStructure<Post>();
-		structure.setData(post);
-		structure.setMessage("Post save Succesfully");
-		structure.setStatus(HttpStatus.CREATED.value());
-		return new ResponseEntity<ResponseStructure<Post>>(structure,HttpStatus.CREATED);
-	}
 
+public interface PostService {
+
+	ResponseEntity<ResponseStructure<Post>> savePost(Post post, int categoryId, int userId);
+
+	ResponseEntity<ResponseStructure<Post>> updatePost(int postId, Post post);
+
+	ResponseEntity<ResponseStructure<Post>> deletePost(int id);
+
+//	ResponseEntity<ResponseStructure<Post>> deletePostByCategory(int categoryId);
+
+	ResponseEntity<ResponseStructure<List<Post>>> getAllPostByUser(int userId);
+
+	ResponseEntity<ResponseStructure<List<Post>>> getAllPostByCategory(int categoryId);
+
+	ResponseEntity<ResponseStructure<Post>> findPost(int postId);
+
+	public ResponseEntity<ResponseStructure<List<Post>>> getAllPost(int PageNumber,int PageSize);
 }
