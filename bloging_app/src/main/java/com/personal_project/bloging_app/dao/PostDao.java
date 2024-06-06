@@ -100,12 +100,11 @@ public class PostDao {
 		}
 	}
 
-	public List<Post> getAllPost(int PageNumber, int PageSize) {
+	public Page<Post> getAllPost(int PageNumber, int PageSize) {
 		// TODO Auto-generated method stub
 //        System.out.println("inside postDao class in getallPost");
-	Pageable page =PageRequest.of(PageNumber, PageSize);
+	   Pageable page =PageRequest.of(PageNumber, PageSize);
 		Page<Post> all = postrepo.findAll(page);
-		List<Post> content = all.getContent();
 //		System.out.println(content);
 //	
 //		if (content!=null) {
@@ -114,8 +113,10 @@ public class PostDao {
 //			return null;
 //		}
 //		List<Post> findAll = postrepo.findAll();
-		if (content!=null) {
-			return content;
+	
+		if (all!=null) {
+			return all;
+			
 		}else {
 			return null;
 		}

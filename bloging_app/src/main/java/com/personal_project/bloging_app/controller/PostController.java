@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.personal_project.bloging_app.dto.Post;
 import com.personal_project.bloging_app.service.PostService;
 import com.personal_project.bloging_app.service.PostServiceImp;
+import com.personal_project.bloging_app.util.PostResponse;
 import com.personal_project.bloging_app.util.ResponseStructure;
 
 import jakarta.validation.Valid;
@@ -64,8 +65,8 @@ public ResponseEntity<ResponseStructure<List<Post>>> getAllPostByCategory( @Requ
 }
 
 @GetMapping("/all")
-public ResponseEntity<ResponseStructure<List<Post>>> getAllPost( @RequestParam (value = "PageNumber ",defaultValue = "1",required = false) int PageNumber,
-		@RequestParam(  value = "PageSize", defaultValue = "2",required = false ) int PageSize ){
+public ResponseEntity<PostResponse<List<Post>>> getAllPost( @RequestParam (value = "PageNumber",defaultValue = "0",required = false) int PageNumber,
+		@RequestParam(  value = "PageSize", defaultValue =  "2",required = false ) int PageSize ){
 	return postService.getAllPost(PageNumber,PageSize);
 	
 }

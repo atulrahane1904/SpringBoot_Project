@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.cache.spi.entry.StructuredCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.personal_project.bloging_app.dao.PostDao;
 import com.personal_project.bloging_app.dto.Catagory;
 import com.personal_project.bloging_app.dto.Post;
 import com.personal_project.bloging_app.exception.IdNotFoundException;
+import com.personal_project.bloging_app.util.PostResponse;
 import com.personal_project.bloging_app.util.ResponseStructure;
 
 import net.bytebuddy.implementation.bytecode.Throw;
@@ -120,21 +122,34 @@ public class PostServiceImp implements PostService {
 
 	
 
-	public ResponseEntity<ResponseStructure<List<Post>>> getAllPost(int PageNumber, int PageSize) {
+	public ResponseEntity<PostResponse<List<Post>>> getAllPost(int PageNumber, int PageSize) {
 		// TODO Auto-generated method stub
-		ResponseStructure<List<Post>> structure = new ResponseStructure<>();
+		PostResponse<List<Post>> structure = new PostResponse<>();
 		if (postDao.getAllPost(PageNumber,PageSize).isEmpty()) {
+			Page<Post> allPost = postDao.getAllPost(PageNumber,PageSize);
+			List<Post> content = allPost.getContent();
 			System.out.println("In postServcieImp inside getalluser method inside if block");
 			structure.setMessage("Post Not Found ");
 			structure.setStatus(HttpStatus.NOT_FOUND.value());
-			structure.setData(null);
-			return new ResponseEntity<ResponseStructure<List<Post>>>(structure, HttpStatus.NOT_FOUND);
+//			structure.setData(null);
+			structure.setContent(content);
+			structure.setLastPage(allPost.isLast());
+			structure.setPageSize(allPost.getSize());
+			structure.setTotalElement(allPost.getTotalElements());
+			structure.setPageNumber(allPost.getNumber());
+			structure.setTotalPages(allPost.getTotalPages());
+			return new ResponseEntity<PostResponse<List<Post>>>(structure, HttpStatus.NOT_FOUND);
 		} else {
-			List<Post> allPost = postDao.getAllPost(PageNumber,PageSize);
+			Page<Post> allPost = postDao.getAllPost(PageNumber,PageSize);
+			List<Post> content = allPost.getContent();
 			structure.setMessage("Post Found Succesfully ");
 			structure.setStatus(HttpStatus.FOUND.value());
-			structure.setData(allPost);
-			return new ResponseEntity<ResponseStructure<List<Post>>>(structure, HttpStatus.FOUND);
+			structure.setContent(allPost.getContent());
+			structure.setLastPage(allPost.isLast());
+			structure.setPageSize(allPost.getSize());
+			structure.setTotalElement(allPost.getTotalElements());
+			structure.setPageNumber(allPost.getNumber());
+			return new ResponseEntity<PostResponse<List<Post>>>(structure, HttpStatus.FOUND);
 		}
 
 	}

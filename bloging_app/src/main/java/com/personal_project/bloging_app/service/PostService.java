@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.personal_project.bloging_app.dto.Post;
+import com.personal_project.bloging_app.util.PostResponse;
 import com.personal_project.bloging_app.util.ResponseStructure;
 
 public interface PostService {
@@ -23,5 +24,5 @@ public interface PostService {
 
 	ResponseEntity<ResponseStructure<Post>> findPost(int postId);
 
-	public ResponseEntity<ResponseStructure<List<Post>>> getAllPost(int PageNumber,int PageSize);
+	public ResponseEntity<PostResponse<List<Post>>> getAllPost(int PageNumber,int PageSize);
 }
