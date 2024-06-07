@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.personal_project.bloging_app.dto.Catagory;
@@ -100,27 +101,27 @@ public class PostDao {
 		}
 	}
 
-	public Page<Post> getAllPost(int PageNumber, int PageSize) {
+	public Page<Post> getAllPost(int PageNumber, int PageSize,String sortBy ,String sortDir ) {
 		// TODO Auto-generated method stub
 //        System.out.println("inside postDao class in getallPost");
-	   Pageable page =PageRequest.of(PageNumber, PageSize);
+		
+		 Sort sort=null;
+		 if (sortDir.equalsIgnoreCase("asc")) {
+			sort=Sort.by(sortBy).ascending();
+		}else {
+			sort=Sort.by(sortBy).descending();
+		}
+		
+		Pageable page = PageRequest.of(PageNumber, PageSize, sort);
 		Page<Post> all = postrepo.findAll(page);
 //		System.out.println(content);
 //	
-//		if (content!=null) {
-//			return content;
-//		}else {
-//			return null;
-//		}
-//		List<Post> findAll = postrepo.findAll();
-	
-		if (all!=null) {
+		if (all != null) {
 			return all;
-			
-		}else {
+
+		} else {
 			return null;
 		}
-//		return postrepo.findAll(page).getContent();
 
 	}
 

@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.cache.spi.entry.StructuredCacheEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.parser.Part.IgnoreCaseType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -122,25 +124,27 @@ public class PostServiceImp implements PostService {
 
 	
 
-	public ResponseEntity<PostResponse<List<Post>>> getAllPost(int PageNumber, int PageSize) {
+	public ResponseEntity<PostResponse<List<Post>>> getAllPost(int PageNumber, int PageSize,String sortBy,String sortDir) {
 		// TODO Auto-generated method stub
 		PostResponse<List<Post>> structure = new PostResponse<>();
-		if (postDao.getAllPost(PageNumber,PageSize).isEmpty()) {
-			Page<Post> allPost = postDao.getAllPost(PageNumber,PageSize);
+//
+		   if(postDao.getAllPost(PageNumber,PageSize,sortBy,sortDir).isEmpty()) {
+			Page<Post> allPost = postDao.getAllPost(PageNumber,PageSize,sortBy,sortDir);
 			List<Post> content = allPost.getContent();
 			System.out.println("In postServcieImp inside getalluser method inside if block");
 			structure.setMessage("Post Not Found ");
 			structure.setStatus(HttpStatus.NOT_FOUND.value());
 //			structure.setData(null);
-			structure.setContent(content);
+			structure.setContent(allPost.getContent());
 			structure.setLastPage(allPost.isLast());
 			structure.setPageSize(allPost.getSize());
 			structure.setTotalElement(allPost.getTotalElements());
 			structure.setPageNumber(allPost.getNumber());
 			structure.setTotalPages(allPost.getTotalPages());
 			return new ResponseEntity<PostResponse<List<Post>>>(structure, HttpStatus.NOT_FOUND);
+		   
 		} else {
-			Page<Post> allPost = postDao.getAllPost(PageNumber,PageSize);
+			Page<Post> allPost = postDao.getAllPost(PageNumber,PageSize,sortBy,sortDir);
 			List<Post> content = allPost.getContent();
 			structure.setMessage("Post Found Succesfully ");
 			structure.setStatus(HttpStatus.FOUND.value());

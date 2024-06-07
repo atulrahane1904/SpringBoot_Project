@@ -57,17 +57,20 @@ public class PostController {
 	public ResponseEntity<ResponseStructure<Post>> findPost(@RequestParam int postId) {
 		return postService.findPost(postId);
 	}
-	
-// get  all post by categpryId
-@GetMapping("/allPost/categoryId")
-public ResponseEntity<ResponseStructure<List<Post>>> getAllPostByCategory( @RequestParam int  CategoryId) {
-	return  postService.getAllPostByCategory(CategoryId);
-}
 
-@GetMapping("/all")
-public ResponseEntity<PostResponse<List<Post>>> getAllPost( @RequestParam (value = "PageNumber",defaultValue = "0",required = false) int PageNumber,
-		@RequestParam(  value = "PageSize", defaultValue =  "2",required = false ) int PageSize ){
-	return postService.getAllPost(PageNumber,PageSize);
-	
-}
+// get  all post by categpryId
+	@GetMapping("/allPost/categoryId")
+	public ResponseEntity<ResponseStructure<List<Post>>> getAllPostByCategory(@RequestParam int CategoryId) {
+		return postService.getAllPostByCategory(CategoryId);
+	}
+
+	@GetMapping("/all")
+	public ResponseEntity<PostResponse<List<Post>>> getAllPost(
+			@RequestParam(value = "PageNumber", defaultValue = "0", required = false) int PageNumber,
+			@RequestParam(value = "PageSize", defaultValue = "2", required = false) int PageSize,
+			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir) {
+		return postService.getAllPost(PageNumber, PageSize, sortBy, sortDir);
+
+	}
 }

@@ -24,5 +24,5 @@ public interface PostService {
 
 	ResponseEntity<ResponseStructure<Post>> findPost(int postId);
 
-	public ResponseEntity<PostResponse<List<Post>>> getAllPost(int PageNumber,int PageSize);
+	public ResponseEntity<PostResponse<List<Post>>> getAllPost(int PageNumber,int PageSize,String sortBy,String sortDir);
 }
